@@ -1,0 +1,1596 @@
+{
+  "name": "LinkedIn 400 Days Automation JS",
+  "flow": [
+    {
+      "id": 8,
+      "module": "google-sheets:filterRows",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 9705246
+      },
+      "mapper": {
+        "from": "drive",
+        "limit": "1",
+        "filter": [
+          [
+            {
+              "a": "H",
+              "b": "Posted",
+              "o": "text:notequal"
+            }
+          ]
+        ],
+        "sheetId": "<SHEET_NAME>",
+        "sortOrder": "asc",
+        "spreadsheetId": "<YOUR_SPREADSHEET_ID>",
+        "tableFirstRow": "A1:BZ1",
+        "includesHeaders": true,
+        "valueRenderOption": "FORMATTED_VALUE",
+        "dateTimeRenderOption": "FORMATTED_STRING"
+      },
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        },
+        "restore": {
+          "expect": {
+            "from": {
+              "label": "Select from My Drive"
+            },
+            "orderBy": {
+              "mode": "chose"
+            },
+            "sheetId": {
+              "mode": "chose",
+              "label": "<SHEET_NAME>"
+            },
+            "sortOrder": {
+              "mode": "chose",
+              "label": "Ascending"
+            },
+            "spreadsheetId": {
+              "mode": "chose",
+              "label": "<YOUR_SPREADSHEET_NAME>"
+            },
+            "tableFirstRow": {
+              "label": "A-BZ"
+            },
+            "includesHeaders": {
+              "mode": "chose",
+              "label": "Yes"
+            },
+            "valueRenderOption": {
+              "mode": "chose",
+              "label": "Formatted value"
+            },
+            "dateTimeRenderOption": {
+              "mode": "chose",
+              "label": "Formatted string"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google"
+              },
+              "label": "My Google connection (<YOUR_EMAIL>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "from",
+            "type": "select",
+            "label": "Search Method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share"
+              ]
+            }
+          },
+          {
+            "name": "valueRenderOption",
+            "type": "select",
+            "label": "Value render option",
+            "validate": {
+              "enum": [
+                "FORMATTED_VALUE",
+                "UNFORMATTED_VALUE",
+                "FORMULA"
+              ]
+            }
+          },
+          {
+            "name": "dateTimeRenderOption",
+            "type": "select",
+            "label": "Date and time render option",
+            "validate": {
+              "enum": [
+                "SERIAL_NUMBER",
+                "FORMATTED_STRING"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "type": "uinteger",
+            "label": "Limit"
+          },
+          {
+            "name": "spreadsheetId",
+            "type": "select",
+            "label": "Spreadsheet ID",
+            "required": true
+          },
+          {
+            "name": "sheetId",
+            "type": "select",
+            "label": "Sheet Name",
+            "required": true
+          },
+          {
+            "name": "includesHeaders",
+            "type": "select",
+            "label": "Table contains headers",
+            "required": true,
+            "validate": {
+              "enum": [
+                true,
+                false
+              ]
+            }
+          },
+          {
+            "name": "tableFirstRow",
+            "type": "select",
+            "label": "Column range",
+            "required": true,
+            "validate": {
+              "enum": [
+                "A1:Z1",
+                "A1:BZ1",
+                "A1:CZ1",
+                "A1:DZ1",
+                "A1:MZ1",
+                "A1:ZZ1",
+                "A1:AZZ1",
+                "A1:BZZ1",
+                "A1:CZZ1",
+                "A1:DZZ1",
+                "A1:MZZ1",
+                "A1:ZZZ1"
+              ]
+            }
+          },
+          {
+            "name": "filter",
+            "type": "filter",
+            "label": "Filter",
+            "options": "rpc://google-sheets/2/rpcGetFilterKeys?includesHeaders=true"
+          },
+          {
+            "name": "orderBy",
+            "type": "select",
+            "label": "Order by"
+          },
+          {
+            "name": "sortOrder",
+            "type": "select",
+            "label": "Sort order",
+            "validate": {
+              "enum": [
+                "asc",
+                "desc"
+              ]
+            }
+          }
+        ],
+        "interface": [
+          {
+            "name": "__IMTLENGTH__",
+            "type": "uinteger",
+            "label": "Total number of bundles"
+          },
+          {
+            "name": "__IMTINDEX__",
+            "type": "uinteger",
+            "label": "Bundle order position"
+          },
+          {
+            "name": "__ROW_NUMBER__",
+            "type": "number",
+            "label": "Row number"
+          },
+          {
+            "name": "__SPREADSHEET_ID__",
+            "type": "text",
+            "label": "Spreadsheet ID"
+          },
+          {
+            "name": "__SHEET__",
+            "type": "text",
+            "label": "Sheet"
+          },
+          {
+            "name": "0",
+            "type": "text",
+            "label": "Day (A)"
+          },
+          {
+            "name": "1",
+            "type": "text",
+            "label": "Topic (B)"
+          },
+          {
+            "name": "2",
+            "type": "text",
+            "label": "Post Content (C)"
+          },
+          {
+            "name": "3",
+            "type": "text",
+            "label": "Image Prompt (D)"
+          },
+          {
+            "name": "4",
+            "type": "text",
+            "label": "Content (E)"
+          },
+          {
+            "name": "5",
+            "type": "text",
+            "label": "URL (F)"
+          },
+          {
+            "name": "6",
+            "type": "text",
+            "label": "Post ID (G)"
+          },
+          {
+            "name": "7",
+            "type": "text",
+            "label": "Status (H)"
+          },
+          {
+            "name": "8",
+            "type": "text",
+            "label": "Timestamp (I)"
+          },
+          {
+            "name": "9",
+            "type": "text",
+            "label": "Row Number (J)"
+          },
+          {
+            "name": "10",
+            "type": "text",
+            "label": "(K)"
+          },
+          {
+            "name": "11",
+            "type": "text",
+            "label": "(L)"
+          },
+          {
+            "name": "12",
+            "type": "text",
+            "label": "(M)"
+          },
+          {
+            "name": "13",
+            "type": "text",
+            "label": "(N)"
+          },
+          {
+            "name": "14",
+            "type": "text",
+            "label": "(O)"
+          },
+          {
+            "name": "15",
+            "type": "text",
+            "label": "(P)"
+          },
+          {
+            "name": "16",
+            "type": "text",
+            "label": "(Q)"
+          },
+          {
+            "name": "17",
+            "type": "text",
+            "label": "(R)"
+          },
+          {
+            "name": "18",
+            "type": "text",
+            "label": "(S)"
+          },
+          {
+            "name": "19",
+            "type": "text",
+            "label": "(T)"
+          },
+          {
+            "name": "20",
+            "type": "text",
+            "label": "(U)"
+          },
+          {
+            "name": "21",
+            "type": "text",
+            "label": "(V)"
+          },
+          {
+            "name": "22",
+            "type": "text",
+            "label": "(W)"
+          },
+          {
+            "name": "23",
+            "type": "text",
+            "label": "(X)"
+          },
+          {
+            "name": "24",
+            "type": "text",
+            "label": "(Y)"
+          },
+          {
+            "name": "25",
+            "type": "text",
+            "label": "(Z)"
+          },
+          {
+            "name": "26",
+            "type": "text",
+            "label": "(AA)"
+          },
+          {
+            "name": "27",
+            "type": "text",
+            "label": "(AB)"
+          },
+          {
+            "name": "28",
+            "type": "text",
+            "label": "(AC)"
+          },
+          {
+            "name": "29",
+            "type": "text",
+            "label": "(AD)"
+          },
+          {
+            "name": "30",
+            "type": "text",
+            "label": "(AE)"
+          },
+          {
+            "name": "31",
+            "type": "text",
+            "label": "(AF)"
+          },
+          {
+            "name": "32",
+            "type": "text",
+            "label": "(AG)"
+          },
+          {
+            "name": "33",
+            "type": "text",
+            "label": "(AH)"
+          },
+          {
+            "name": "34",
+            "type": "text",
+            "label": "(AI)"
+          },
+          {
+            "name": "35",
+            "type": "text",
+            "label": "(AJ)"
+          },
+          {
+            "name": "36",
+            "type": "text",
+            "label": "(AK)"
+          },
+          {
+            "name": "37",
+            "type": "text",
+            "label": "(AL)"
+          },
+          {
+            "name": "38",
+            "type": "text",
+            "label": "(AM)"
+          },
+          {
+            "name": "39",
+            "type": "text",
+            "label": "(AN)"
+          },
+          {
+            "name": "40",
+            "type": "text",
+            "label": "(AO)"
+          },
+          {
+            "name": "41",
+            "type": "text",
+            "label": "(AP)"
+          },
+          {
+            "name": "42",
+            "type": "text",
+            "label": "(AQ)"
+          },
+          {
+            "name": "43",
+            "type": "text",
+            "label": "(AR)"
+          },
+          {
+            "name": "44",
+            "type": "text",
+            "label": "(AS)"
+          },
+          {
+            "name": "45",
+            "type": "text",
+            "label": "(AT)"
+          },
+          {
+            "name": "46",
+            "type": "text",
+            "label": "(AU)"
+          },
+          {
+            "name": "47",
+            "type": "text",
+            "label": "(AV)"
+          },
+          {
+            "name": "48",
+            "type": "text",
+            "label": "(AW)"
+          },
+          {
+            "name": "49",
+            "type": "text",
+            "label": "(AX)"
+          },
+          {
+            "name": "50",
+            "type": "text",
+            "label": "(AY)"
+          },
+          {
+            "name": "51",
+            "type": "text",
+            "label": "(AZ)"
+          },
+          {
+            "name": "52",
+            "type": "text",
+            "label": "(BA)"
+          },
+          {
+            "name": "53",
+            "type": "text",
+            "label": "(BB)"
+          },
+          {
+            "name": "54",
+            "type": "text",
+            "label": "(BC)"
+          },
+          {
+            "name": "55",
+            "type": "text",
+            "label": "(BD)"
+          },
+          {
+            "name": "56",
+            "type": "text",
+            "label": "(BE)"
+          },
+          {
+            "name": "57",
+            "type": "text",
+            "label": "(BF)"
+          },
+          {
+            "name": "58",
+            "type": "text",
+            "label": "(BG)"
+          },
+          {
+            "name": "59",
+            "type": "text",
+            "label": "(BH)"
+          },
+          {
+            "name": "60",
+            "type": "text",
+            "label": "(BI)"
+          },
+          {
+            "name": "61",
+            "type": "text",
+            "label": "(BJ)"
+          },
+          {
+            "name": "62",
+            "type": "text",
+            "label": "(BK)"
+          },
+          {
+            "name": "63",
+            "type": "text",
+            "label": "(BL)"
+          },
+          {
+            "name": "64",
+            "type": "text",
+            "label": "(BM)"
+          },
+          {
+            "name": "65",
+            "type": "text",
+            "label": "(BN)"
+          },
+          {
+            "name": "66",
+            "type": "text",
+            "label": "(BO)"
+          },
+          {
+            "name": "67",
+            "type": "text",
+            "label": "(BP)"
+          },
+          {
+            "name": "68",
+            "type": "text",
+            "label": "(BQ)"
+          },
+          {
+            "name": "69",
+            "type": "text",
+            "label": "(BR)"
+          },
+          {
+            "name": "70",
+            "type": "text",
+            "label": "(BS)"
+          },
+          {
+            "name": "71",
+            "type": "text",
+            "label": "(BT)"
+          },
+          {
+            "name": "72",
+            "type": "text",
+            "label": "(BU)"
+          },
+          {
+            "name": "73",
+            "type": "text",
+            "label": "(BV)"
+          },
+          {
+            "name": "74",
+            "type": "text",
+            "label": "(BW)"
+          },
+          {
+            "name": "75",
+            "type": "text",
+            "label": "(BX)"
+          },
+          {
+            "name": "76",
+            "type": "text",
+            "label": "(BY)"
+          },
+          {
+            "name": "77",
+            "type": "text",
+            "label": "(BZ)"
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "module": "http:ActionSendData",
+      "version": 3,
+      "parameters": {
+        "handleErrors": true,
+        "useNewZLibDeCompress": true
+      },
+      "mapper": {
+        "ca": "",
+        "qs": [],
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "data": "{\r\n  \"model\": \"llama-3.3-70b-versatile\",\r\n  \"messages\": [\r\n    {\r\n      \"role\": \"system\",\r\n      \"content\": \"You are an expert LinkedIn content creator and social media strategist with deep knowledge of professional development, coding, AI tools, and tech industry trends. Your writing style is conversational, authentic, and provides genuine value to tech professionals and developers. You understand LinkedIn's algorithm and what drives engagement.\"\r\n    },\r\n    {\r\n      \"role\": \"user\",\r\n      \"content\": \"Your task is to generate a single LinkedIn post. Follow all instructions precisely.\\n\\n--- INPUT DATA ---\\nTopic: {{8.`2`}}\\nIdea: {{8.`3`}}\\n\\n--- REQUIREMENTS ---\\n- Start with a powerful hook that grabs attention in the first line.\\n- Provide actionable, valuable insights that professionals can apply.\\n- Structure the post with proper line breaks and strategic emojis for readability.\\n- Keep the post concise and impactful, between 150-250 words.\\n- End with an engaging question to encourage comments.\\n- Maintain a professional, conversational, and authentic tone.\\n- For a 'Coding Tip' topic, focus on practical techniques.\\n- For an 'AI Tool' topic, highlight specific use cases and benefits.\\n- For a 'Coding Joke' topic, balance humor with a professional insight.\\n- Include these exact hashtags at the end: #{{8.`2`}} #ProfessionalDevelopment #TechCommunity #DeveloperLife #ContinuousLearning #TechTips\\n\\n--- CRITICAL RULE ---\\nDo NOT write any introductory text, explanations, or conversational phrases like \\\"Here's a compelling LinkedIn post...\\\" or any other commentary. Your response must ONLY be the final text of the LinkedIn post itself.\"\r\n    }\r\n  ],\r\n  \"max_tokens\": 400,\r\n  \"temperature\": 0.8,\r\n  \"top_p\": 0.9,\r\n  \"frequency_penalty\": 0.3,\r\n  \"presence_penalty\": 0.2\r\n}",
+        "gzip": true,
+        "method": "post",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer <YOUR_API_KEY>QZAIjPL1aQpTbpbm7nG8WGdyb3FY75dS9OjDZdqqO3l5ogaELSnj"
+          }
+        ],
+        "timeout": "",
+        "useMtls": false,
+        "authPass": "",
+        "authUser": "",
+        "bodyType": "raw",
+        "contentType": "application/json",
+        "serializeUrl": false,
+        "shareCookies": false,
+        "parseResponse": true,
+        "followRedirect": true,
+        "useQuerystring": false,
+        "followAllRedirects": false,
+        "rejectUnauthorized": true
+      },
+      "metadata": {
+        "designer": {
+          "x": 300,
+          "y": 0
+        },
+        "restore": {
+          "expect": {
+            "qs": {
+              "mode": "chose"
+            },
+            "method": {
+              "mode": "chose",
+              "label": "POST"
+            },
+            "headers": {
+              "mode": "chose",
+              "items": [
+                null
+              ]
+            },
+            "bodyType": {
+              "label": "Raw"
+            },
+            "contentType": {
+              "label": "JSON (application/json)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "handleErrors",
+            "type": "boolean",
+            "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+            "required": true
+          },
+          {
+            "name": "useNewZLibDeCompress",
+            "type": "hidden"
+          }
+        ],
+        "expect": [
+          {
+            "name": "url",
+            "type": "url",
+            "label": "URL",
+            "required": true
+          },
+          {
+            "name": "serializeUrl",
+            "type": "boolean",
+            "label": "Serialize URL",
+            "required": true
+          },
+          {
+            "name": "method",
+            "type": "select",
+            "label": "Method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "get",
+                "head",
+                "post",
+                "put",
+                "patch",
+                "delete",
+                "options"
+              ]
+            }
+          },
+          {
+            "name": "headers",
+            "spec": [
+              {
+                "name": "name",
+                "type": "text",
+                "label": "Name",
+                "required": true
+              },
+              {
+                "name": "value",
+                "type": "text",
+                "label": "Value"
+              }
+            ],
+            "type": "array",
+            "label": "Headers"
+          },
+          {
+            "name": "qs",
+            "spec": [
+              {
+                "name": "name",
+                "type": "text",
+                "label": "Name",
+                "required": true
+              },
+              {
+                "name": "value",
+                "type": "text",
+                "label": "Value"
+              }
+            ],
+            "type": "array",
+            "label": "Query String"
+          },
+          {
+            "name": "bodyType",
+            "type": "select",
+            "label": "Body type",
+            "validate": {
+              "enum": [
+                "raw",
+                "x_www_form_urlencoded",
+                "multipart_form_data"
+              ]
+            }
+          },
+          {
+            "name": "parseResponse",
+            "type": "boolean",
+            "label": "Parse response",
+            "required": true
+          },
+          {
+            "name": "authUser",
+            "type": "text",
+            "label": "User name"
+          },
+          {
+            "name": "authPass",
+            "type": "password",
+            "label": "Password"
+          },
+          {
+            "name": "timeout",
+            "type": "uinteger",
+            "label": "Timeout",
+            "validate": {
+              "max": 300,
+              "min": 1
+            }
+          },
+          {
+            "name": "shareCookies",
+            "type": "boolean",
+            "label": "Share cookies with other HTTP modules",
+            "required": true
+          },
+          {
+            "name": "ca",
+            "type": "cert",
+            "label": "Self-signed certificate"
+          },
+          {
+            "name": "rejectUnauthorized",
+            "type": "boolean",
+            "label": "Reject connections that are using unverified (self-signed) certificates",
+            "required": true
+          },
+          {
+            "name": "followRedirect",
+            "type": "boolean",
+            "label": "Follow redirect",
+            "required": true
+          },
+          {
+            "name": "useQuerystring",
+            "type": "boolean",
+            "label": "Disable serialization of multiple same query string keys as arrays",
+            "required": true
+          },
+          {
+            "name": "gzip",
+            "type": "boolean",
+            "label": "Request compressed content",
+            "required": true
+          },
+          {
+            "name": "useMtls",
+            "type": "boolean",
+            "label": "Use Mutual TLS",
+            "required": true
+          },
+          {
+            "name": "contentType",
+            "type": "select",
+            "label": "Content type",
+            "validate": {
+              "enum": [
+                "text/plain",
+                "application/json",
+                "application/xml",
+                "text/xml",
+                "text/html",
+                "custom"
+              ]
+            }
+          },
+          {
+            "name": "data",
+            "type": "buffer",
+            "label": "Request content"
+          },
+          {
+            "name": "followAllRedirects",
+            "type": "boolean",
+            "label": "Follow all redirect",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "module": "app#pexels-5c4l1t:searchPhotos",
+      "version": 1,
+      "parameters": {
+        "__IMTCONN__": 9898871
+      },
+      "mapper": {
+        "size": "medium",
+        "limit": "1",
+        "query": "{{8.`1`}}",
+        "orientation": "square"
+      },
+      "metadata": {
+        "designer": {
+          "x": 600,
+          "y": 0
+        },
+        "restore": {
+          "expect": {
+            "size": {
+              "mode": "chose",
+              "label": "Medium (12MP)"
+            },
+            "locale": {
+              "mode": "chose",
+              "label": "Empty"
+            },
+            "orientation": {
+              "mode": "chose",
+              "label": "Square"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "app#pexels-5c4l1t"
+              },
+              "label": "My Pexels connection"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:app#pexels-5c4l1t",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "query",
+            "type": "text",
+            "label": "Search Query",
+            "required": true
+          },
+          {
+            "name": "orientation",
+            "type": "select",
+            "label": "Orientation",
+            "validate": {
+              "enum": [
+                "landscape",
+                "portrait",
+                "square"
+              ]
+            }
+          },
+          {
+            "name": "size",
+            "type": "select",
+            "label": "Size",
+            "validate": {
+              "enum": [
+                "large",
+                "medium",
+                "small"
+              ]
+            }
+          },
+          {
+            "name": "color",
+            "type": "text",
+            "label": "Color"
+          },
+          {
+            "name": "locale",
+            "type": "select",
+            "label": "Locale",
+            "validate": {
+              "enum": [
+                "en-US",
+                "pt-BR",
+                "es-ES",
+                "ca-ES",
+                "de-DE",
+                "it-IT",
+                "fr-FR",
+                "sv-SE",
+                "id-ID",
+                "pl-PL",
+                "ja-JP",
+                "zh-TW",
+                "zh-CN",
+                "ko-KR",
+                "th-TH",
+                "nl-NL",
+                "hu-HU",
+                "vi-VN",
+                "cs-CZ",
+                "da-DK",
+                "fi-FI",
+                "uk-UA",
+                "el-GR",
+                "ro-RO",
+                "nb-NO",
+                "sk-SK",
+                "tr-TR",
+                "ru-RU"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "type": "number",
+            "label": "Limit"
+          }
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "module": "http:ActionGetFile",
+      "version": 3,
+      "parameters": {
+        "handleErrors": false
+      },
+      "mapper": {
+        "url": "{{21.src.original}}",
+        "method": "get",
+        "serializeUrl": false,
+        "shareCookies": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 900,
+          "y": 0
+        },
+        "restore": {},
+        "parameters": [
+          {
+            "name": "handleErrors",
+            "type": "boolean",
+            "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "url",
+            "type": "url",
+            "label": "URL",
+            "required": true
+          },
+          {
+            "name": "serializeUrl",
+            "type": "boolean",
+            "label": "Serialize URL",
+            "required": true
+          },
+          {
+            "name": "method",
+            "type": "hidden",
+            "label": "Method"
+          },
+          {
+            "name": "shareCookies",
+            "type": "boolean",
+            "label": "Share cookies with other HTTP modules",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "module": "linkedin:ShareImage",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 9708494
+      },
+      "mapper": {
+        "data": "{{24.data}}",
+        "title": "{{8.`2`}}",
+        "altText": "{{8.`4`}}",
+        "content": "{{16.data.choices[].message.content}}",
+        "fileName": "{{24.fileName}}",
+        "visibility": "PUBLIC",
+        "feedDistribution": "MAIN_FEED",
+        "isReshareDisabledByAuthor": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 0
+        },
+        "restore": {
+          "expect": {
+            "visibility": {
+              "mode": "chose",
+              "label": "Public"
+            },
+            "feedDistribution": {
+              "mode": "chose",
+              "label": "Main feed"
+            },
+            "isReshareDisabledByAuthor": {
+              "mode": "chose"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "linkedin2"
+              },
+              "label": "My LinkedIn connection (Jeevasurya P)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:linkedin2,linkedin-openid",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "fileName",
+            "type": "text",
+            "label": "File name",
+            "required": true
+          },
+          {
+            "name": "data",
+            "type": "buffer",
+            "label": "Data",
+            "required": true
+          },
+          {
+            "name": "title",
+            "type": "text",
+            "label": "Title"
+          },
+          {
+            "name": "altText",
+            "type": "text",
+            "label": "Alt Text"
+          },
+          {
+            "name": "content",
+            "type": "text",
+            "label": "Content",
+            "required": true
+          },
+          {
+            "name": "visibility",
+            "type": "select",
+            "label": "Visibility",
+            "required": true,
+            "validate": {
+              "enum": [
+                "PUBLIC",
+                "CONNECTIONS",
+                "LOGGED_IN"
+              ]
+            }
+          },
+          {
+            "name": "feedDistribution",
+            "type": "select",
+            "label": "Feed Distribution",
+            "required": true,
+            "validate": {
+              "enum": [
+                "MAIN_FEED",
+                "NONE"
+              ]
+            }
+          },
+          {
+            "name": "isReshareDisabledByAuthor",
+            "type": "boolean",
+            "label": "Is Reshare Disabled",
+            "required": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "module": "google-sheets:updateRow",
+      "version": 2,
+      "parameters": {
+        "__IMTCONN__": 9705246
+      },
+      "mapper": {
+        "from": "drive",
+        "mode": "select",
+        "values": {
+          "4": "{{substring(16.data.choices[].message.content; 0; 79999)}}",
+          "5": "{{21.url}}",
+          "6": "{{12.id}}",
+          "7": "Posted",
+          "8": "{{now}}"
+        },
+        "sheetId": "<SHEET_NAME>",
+        "rowNumber": "{{8.`__ROW_NUMBER__`}}",
+        "spreadsheetId": "<YOUR_SPREADSHEET_ID>",
+        "includesHeaders": true,
+        "valueInputOption": "USER_ENTERED"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1500,
+          "y": 0
+        },
+        "restore": {
+          "expect": {
+            "from": {
+              "label": "My Drive"
+            },
+            "mode": {
+              "label": "Search by path"
+            },
+            "sheetId": {
+              "label": "<SHEET_NAME>"
+            },
+            "spreadsheetId": {
+              "path": [
+                "400 Day Automation Linkedin"
+              ],
+              "label": "<YOUR_SPREADSHEET_NAME>"
+            },
+            "includesHeaders": {
+              "label": "Yes",
+              "nested": [
+                {
+                  "name": "values",
+                  "spec": [
+                    {
+                      "name": "0",
+                      "type": "text",
+                      "label": "Day (A)"
+                    },
+                    {
+                      "name": "1",
+                      "type": "text",
+                      "label": "Topic (B)"
+                    },
+                    {
+                      "name": "2",
+                      "type": "text",
+                      "label": "Post Content (C)"
+                    },
+                    {
+                      "name": "3",
+                      "type": "text",
+                      "label": "Image Prompt (D)"
+                    },
+                    {
+                      "name": "4",
+                      "type": "text",
+                      "label": "Content (E)"
+                    },
+                    {
+                      "name": "5",
+                      "type": "text",
+                      "label": "URL (F)"
+                    },
+                    {
+                      "name": "6",
+                      "type": "text",
+                      "label": "Post ID (G)"
+                    },
+                    {
+                      "name": "7",
+                      "type": "text",
+                      "label": "Status (H)"
+                    },
+                    {
+                      "name": "8",
+                      "type": "text",
+                      "label": "Timestamp (I)"
+                    },
+                    {
+                      "name": "9",
+                      "type": "text",
+                      "label": "Row Number (J)"
+                    },
+                    {
+                      "name": "10",
+                      "type": "text",
+                      "label": "(K)"
+                    },
+                    {
+                      "name": "11",
+                      "type": "text",
+                      "label": "(L)"
+                    },
+                    {
+                      "name": "12",
+                      "type": "text",
+                      "label": "(M)"
+                    },
+                    {
+                      "name": "13",
+                      "type": "text",
+                      "label": "(N)"
+                    },
+                    {
+                      "name": "14",
+                      "type": "text",
+                      "label": "(O)"
+                    },
+                    {
+                      "name": "15",
+                      "type": "text",
+                      "label": "(P)"
+                    },
+                    {
+                      "name": "16",
+                      "type": "text",
+                      "label": "(Q)"
+                    },
+                    {
+                      "name": "17",
+                      "type": "text",
+                      "label": "(R)"
+                    },
+                    {
+                      "name": "18",
+                      "type": "text",
+                      "label": "(S)"
+                    },
+                    {
+                      "name": "19",
+                      "type": "text",
+                      "label": "(T)"
+                    },
+                    {
+                      "name": "20",
+                      "type": "text",
+                      "label": "(U)"
+                    },
+                    {
+                      "name": "21",
+                      "type": "text",
+                      "label": "(V)"
+                    },
+                    {
+                      "name": "22",
+                      "type": "text",
+                      "label": "(W)"
+                    },
+                    {
+                      "name": "23",
+                      "type": "text",
+                      "label": "(X)"
+                    },
+                    {
+                      "name": "24",
+                      "type": "text",
+                      "label": "(Y)"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Values"
+                }
+              ]
+            },
+            "valueInputOption": {
+              "mode": "chose",
+              "label": "User entered"
+            }
+          },
+          "parameters": {
+            "__IMTCONN__": {
+              "data": {
+                "scoped": "true",
+                "connection": "google"
+              },
+              "label": "My Google connection (<YOUR_EMAIL>)"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "mode",
+            "type": "select",
+            "label": "Search Method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "select",
+                "fromAll",
+                "map"
+              ]
+            }
+          },
+          {
+            "name": "valueInputOption",
+            "type": "select",
+            "label": "Value input option",
+            "validate": {
+              "enum": [
+                "USER_ENTERED",
+                "RAW"
+              ]
+            }
+          },
+          {
+            "name": "from",
+            "type": "select",
+            "label": "Drive",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share",
+                "team"
+              ]
+            }
+          },
+          {
+            "name": "spreadsheetId",
+            "type": "file",
+            "label": "Spreadsheet ID",
+            "required": true
+          },
+          {
+            "name": "sheetId",
+            "type": "select",
+            "label": "Sheet Name",
+            "required": true
+          },
+          {
+            "name": "rowNumber",
+            "type": "uinteger",
+            "label": "Row number",
+            "required": true
+          },
+          {
+            "name": "includesHeaders",
+            "type": "select",
+            "label": "Table contains headers",
+            "required": true,
+            "validate": {
+              "enum": [
+                true,
+                false
+              ]
+            }
+          },
+          {
+            "name": "values",
+            "spec": [
+              {
+                "name": "0",
+                "type": "text",
+                "label": "Day (A)"
+              },
+              {
+                "name": "1",
+                "type": "text",
+                "label": "Topic (B)"
+              },
+              {
+                "name": "2",
+                "type": "text",
+                "label": "Post Content (C)"
+              },
+              {
+                "name": "3",
+                "type": "text",
+                "label": "Image Prompt (D)"
+              },
+              {
+                "name": "4",
+                "type": "text",
+                "label": "Content (E)"
+              },
+              {
+                "name": "5",
+                "type": "text",
+                "label": "URL (F)"
+              },
+              {
+                "name": "6",
+                "type": "text",
+                "label": "Post ID (G)"
+              },
+              {
+                "name": "7",
+                "type": "text",
+                "label": "Status (H)"
+              },
+              {
+                "name": "8",
+                "type": "text",
+                "label": "Timestamp (I)"
+              },
+              {
+                "name": "9",
+                "type": "text",
+                "label": "Row Number (J)"
+              },
+              {
+                "name": "10",
+                "type": "text",
+                "label": "(K)"
+              },
+              {
+                "name": "11",
+                "type": "text",
+                "label": "(L)"
+              },
+              {
+                "name": "12",
+                "type": "text",
+                "label": "(M)"
+              },
+              {
+                "name": "13",
+                "type": "text",
+                "label": "(N)"
+              },
+              {
+                "name": "14",
+                "type": "text",
+                "label": "(O)"
+              },
+              {
+                "name": "15",
+                "type": "text",
+                "label": "(P)"
+              },
+              {
+                "name": "16",
+                "type": "text",
+                "label": "(Q)"
+              },
+              {
+                "name": "17",
+                "type": "text",
+                "label": "(R)"
+              },
+              {
+                "name": "18",
+                "type": "text",
+                "label": "(S)"
+              },
+              {
+                "name": "19",
+                "type": "text",
+                "label": "(T)"
+              },
+              {
+                "name": "20",
+                "type": "text",
+                "label": "(U)"
+              },
+              {
+                "name": "21",
+                "type": "text",
+                "label": "(V)"
+              },
+              {
+                "name": "22",
+                "type": "text",
+                "label": "(W)"
+              },
+              {
+                "name": "23",
+                "type": "text",
+                "label": "(X)"
+              },
+              {
+                "name": "24",
+                "type": "text",
+                "label": "(Y)"
+              }
+            ],
+            "type": "collection",
+            "label": "Values"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "maxErrors": 3,
+      "autoCommit": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "eu2.make.com",
+    "notes": []
+  }
+}
